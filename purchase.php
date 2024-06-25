@@ -14,7 +14,7 @@ foreach ($input as $k => $v){
     $str .= $k.'='.$v;
 }
 
-if ($sig != md5($str.$secret_key)){
+if (true/*$sig != md5($str.$secret_key)*/){
     $response['error'] = array(
         'error_code' => 10,
         'error_mag' => 'notnot',
