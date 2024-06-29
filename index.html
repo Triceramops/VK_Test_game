@@ -372,12 +372,6 @@
             }
 
             window.setMinimumDelayBetweenInterstitial = function(options) {
-                if (options) {
-                    options = JSON.parse(options)
-                } else {
-                    options = { }
-                }
-                
                 bridge.advertisement.setMinimumDelayBetweenInterstitial(options)
             }
 
@@ -411,12 +405,8 @@
                 bridge.advertisement.hideBanner()
             }
 
-            window.showInterstitial = function(options) {
-                if (options) {
-                    options = JSON.parse(options)
-                }
-
-                bridge.advertisement.showInterstitial(options)
+            window.showInterstitial = function() {
+                bridge.advertisement.showInterstitial()
             }
 
             window.showRewarded = function() {
@@ -471,8 +461,12 @@
                     })
             }
 
-            window.inviteFriends = function() {
-                bridge.social.inviteFriends()
+            window.inviteFriends = function(options) {
+                if (options) {
+                    options = JSON.parse(options)
+                }
+                
+                bridge.social.inviteFriends(options)
                     .then(() => {
                         sendMessageToUnity('OnInviteFriendsCompleted', 'true')
                     })
@@ -547,10 +541,6 @@
 
             window.getIsLeaderboardNativePopupSupported = function() {
                 return bridge.leaderboard.isNativePopupSupported.toString()
-            }
-
-            window.getIsLeaderboardMultipleBoardsSupported = function() {
-                return bridge.leaderboard.isMultipleBoardsSupported.toString()
             }
 
             window.getIsLeaderboardSetScoreSupported = function() {
@@ -641,8 +631,12 @@
                 return bridge.payments.isSupported.toString()
             }
 
-            window.paymentsPurchase = function(purchaseId) {
-                bridge.payments.purchase(purchaseId)
+            window.paymentsPurchase = function(options) {
+                if (options) {
+                    options = JSON.parse(options)
+                }
+                
+                bridge.payments.purchase(options)
                     .then(() => {
                         sendMessageToUnity('OnPaymentsPurchaseCompleted', 'true')
                     })
@@ -651,8 +645,12 @@
                     })
             }
 
-            window.paymentsConsumePurchase = function(purchaseToken) {
-                bridge.payments.consumePurchase(purchaseToken)
+            window.paymentsConsumePurchase = function(options) {
+                if (options) {
+                    options = JSON.parse(options)
+                }
+                
+                bridge.payments.consumePurchase(options)
                     .then(() => {
                         sendMessageToUnity('OnPaymentsConsumePurchaseCompleted', 'true')
                     })
@@ -709,8 +707,6 @@
             window.remoteConfigGet = function(options) {
                 if (options) {
                     options = JSON.parse(options)
-                } else {
-                    options = { clientFeatures: [] }
                 }
 
                 bridge.remoteConfig.get(options)
